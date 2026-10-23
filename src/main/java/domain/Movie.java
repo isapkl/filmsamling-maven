@@ -79,7 +79,13 @@ public class Movie {
     @Override
     public String toString()
     {
-        return title + " (" + yearCreated+ " ), " + director + ", " + genre + ", " + lengthInMinutes + " min" + lastWatched;
+        System.out.println("Film: ");
+        return "Titel: " + title +
+                ", Udgivelsesår: " + yearCreated +
+                ", Instruktør: " + director +
+                ", Genre: " + genre +
+                ", Længde: " + lengthInMinutes + " min " +
+                "sidst set: " + lastWatched;
     }
     //Én films oplysninger
     //Må ikke: udskrive eller læse input
