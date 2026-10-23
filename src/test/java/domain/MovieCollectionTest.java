@@ -41,4 +41,59 @@ class MovieCollectionTest {
         assertTrue(collection.searchMovies("Casablanca").isEmpty());
     }
 
+    @Test
+    void editMovieSuccessfully() {
+        // Arrange
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        // Act
+        boolean result = collection.editMovie(
+                casablanca,
+                "Casablanca 2",
+                "Michael Curtiz 2",
+                1943,
+                true,
+                120,
+                "Action"
+        );
+
+        // Assert
+        assertTrue(result);
+        assertEquals("Casablanca 2", casablanca.getTitle());
+        assertEquals("Michael Curtiz 2", casablanca.getDirector());
+        assertEquals(1943, casablanca.getYearCreated());
+        assertTrue(casablanca.isInColor());
+        assertEquals(120, casablanca.getLengthInMinutes());
+        assertEquals("Action", casablanca.getGenre());
+    }
+
+    @Test
+    void editMovieNotInCollection() {
+        // Arrange
+        Movie unknownMovie = new Movie(
+                "Unknown",
+                "Unknown Director",
+                2000,
+                false,
+                90,
+                "Drama"
+        );
+
+        // Act
+        boolean result = collection.editMovie(
+                unknownMovie,
+                "New Title",
+                "New Director",
+                2020,
+                true,
+                120,
+                "Action"
+        );
+
+        // Assert
+        assertFalse(result);
+        assertEquals("Unknown", unknownMovie.getTitle());
+        assertEquals("Unknown Director", unknownMovie.getDirector());
+    }
+
 }
