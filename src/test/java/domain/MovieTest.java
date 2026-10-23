@@ -29,4 +29,41 @@ class MovieTest {
         assertEquals("Casablanca", movie);
     }
 
+    @Test
+    void GetMovieDirector() {
+        // Arrange
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        // Act
+        String movie = casablanca.getDirector();
+
+        // Assert
+        assertEquals("Michael Curtiz", movie);
+    }
+
+    @Test
+    void GetInColor() {
+        // Arrange
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        // Act
+        Boolean movie = casablanca.isInColor();
+
+        // Assert
+        assertEquals(false, movie);
+    }
+
+    @Test
+    void SetMovieDirector() {
+        // Arrange
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        // Act
+        casablanca.setDirector("Michael Curtiz 2");
+
+        // Assert
+        assertEquals("Michael Curtiz 2", casablanca.getDirector());
+    }
+
+
 }
