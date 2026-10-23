@@ -3,6 +3,7 @@ package ui;
 import controller.Controller;
 import domain.Movie;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,7 +69,15 @@ public class UserInterface {
         System.out.print("Indtast filmens genre: ");
         String genre = scanner.nextLine();
 
-        controller.addMovie(title, director, yearCreated, inColor, lengthInMinutes, genre);
+        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
+        String input = scanner.nextLine();
+
+        LocalDate lastWatched = null;
+
+        if (!input.isBlank()) {
+            lastWatched = LocalDate.parse(input);
+        }
+        controller.addMovie(title, director, yearCreated, inColor, lengthInMinutes, genre, lastWatched);
 
         System.out.println("Filmen er blevet oprettet!");
     }
@@ -125,7 +134,7 @@ public class UserInterface {
         System.out.print("Ny genre: ");
         String genre = scanner.nextLine();
 
-        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, inColor, lengthInMinutes);
+        boolean success = controller.editMovie(movie, title, genre, yearCreated, inColor, lengthInMinutes, director);
 
         if (success) {
             System.out.println("Filmen er blevet redigeret.");
