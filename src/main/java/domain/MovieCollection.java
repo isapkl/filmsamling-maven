@@ -8,10 +8,10 @@ public class MovieCollection {
     private ArrayList<Movie> movies = new ArrayList<>();
 
 
-    public void addMovie(String title, String director, int yearCreated, boolean inColor,
-                         int lengthInMinutes, String genre, LocalDate lastWatched)
+    public void addMovie(String title, String genre, String director, int yearCreated, int lengthInMinutes,
+                         boolean inColor, LocalDate lastWatched)
     {
-        Movie movie= new Movie(title, director, yearCreated, inColor, lengthInMinutes, genre, lastWatched);
+        Movie movie= new Movie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
         movies.add(movie);
     }
 
@@ -38,7 +38,7 @@ public class MovieCollection {
 
     public boolean editMovie(Movie movie, String title, String genre,
                              String director, int yearCreated,
-                             boolean inColor, int lengthInMinutes) {
+                             int lengthInMinutes, boolean inColor) {
         if (movies.contains(movie)){
             movie.setTitle(title);
             movie.setDirector(director);

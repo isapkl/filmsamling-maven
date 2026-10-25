@@ -12,8 +12,8 @@ public class Movie {
     private String genre;
     private LocalDate lastWatched;
 
-    public Movie(String title, String director, int yearCreated, boolean inColor,
-                 int lengthInMinutes, String genre, LocalDate lastWatched) {
+    public Movie(String title, String genre, String director, int yearCreated, int lengthInMinutes,
+                 boolean inColor, LocalDate lastWatched) {
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
@@ -81,11 +81,11 @@ public class Movie {
     {
         System.out.println("Film: ");
         return "Titel: " + title +
-                ", Udgivelsesår: " + yearCreated +
-                ", Instruktør: " + director +
                 ", Genre: " + genre +
-                ", Længde: " + lengthInMinutes + " min " +
-                "sidst set: " + lastWatched;
+                ", Instruktør: " + director +
+                ", Udgivelsesår: " + yearCreated +
+                ", Længde: " + lengthInMinutes + " min., " +
+                "Sidst set: " + lastWatched;
     }
     //Én films oplysninger
     //Må ikke: udskrive eller læse input

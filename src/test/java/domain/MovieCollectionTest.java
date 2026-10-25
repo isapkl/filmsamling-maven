@@ -3,6 +3,7 @@ package domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,9 +15,9 @@ class MovieCollectionTest {
     void setUp() {
         // Kører før HVER test – så starter alle tests med den samme, friske samling
         collection = new MovieCollection();
-        collection.addMovie("The Godfather", "Francis Ford Coppola", 1972, true, 175, "Crime");
-        collection.addMovie("Casablanca", "Michael Curtiz", 1942, false, 102, "Drama");
-        collection.addMovie("Godzilla", "Ishirō Honda", 1954, false, 96, "Sci-fi");
+        collection.addMovie("The Godfather", "Crime", "Francis Ford Coppola", 1972, 175, true, LocalDate.of(2015, 9, 12));
+        collection.addMovie("Casablanca", "Drama", "Michael Curtiz", 1942, 102, false, LocalDate.of(2020, 5, 10));
+        collection.addMovie("Godzilla", "Sci-fi", "Ishirō Honda", 1954, 96, false, LocalDate.of(2000, 10, 15));
     }
 
     @Test
@@ -50,11 +51,11 @@ class MovieCollectionTest {
         boolean result = collection.editMovie(
                 casablanca,
                 "Casablanca 2",
+                "Action",
                 "Michael Curtiz 2",
                 1943,
-                true,
                 120,
-                "Action"
+                true
         );
 
         // Assert
@@ -72,22 +73,23 @@ class MovieCollectionTest {
         // Arrange
         Movie unknownMovie = new Movie(
                 "Unknown",
+                "Drama",
                 "Unknown Director",
                 2000,
-                false,
                 90,
-                "Drama"
+                false,
+                LocalDate.of(2000, 12, 13)
         );
 
         // Act
         boolean result = collection.editMovie(
                 unknownMovie,
                 "New Title",
+                "Action",
                 "New Director",
                 2020,
-                true,
                 120,
-                "Action"
+                true
         );
 
         // Assert

@@ -54,20 +54,20 @@ public class UserInterface {
         System.out.print("Indtast filmens titel: ");
         String title = scanner.nextLine();
 
+        System.out.print("Indtast filmens genre: ");
+        String genre = scanner.nextLine();
+
         System.out.print("Indtast instruktørens navn: ");
         String director = scanner.nextLine();
 
         System.out.print("Indtast filmens udgivelsesår: ");
         int yearCreated = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Er filmen i farver? (true/false): ");
-        boolean inColor = Boolean.parseBoolean(scanner.nextLine());
-
         System.out.print("Indtast filmens længde i minutter: ");
         int lengthInMinutes = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Indtast filmens genre: ");
-        String genre = scanner.nextLine();
+        System.out.print("Er filmen i farver? (true/false): ");
+        boolean inColor = Boolean.parseBoolean(scanner.nextLine());
 
         System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
         String input = scanner.nextLine();
@@ -77,7 +77,7 @@ public class UserInterface {
         if (!input.isBlank()) {
             lastWatched = LocalDate.parse(input);
         }
-        controller.addMovie(title, director, yearCreated, inColor, lengthInMinutes, genre, lastWatched);
+        controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
         System.out.println("Filmen er blevet oprettet!");
     }
@@ -121,20 +121,21 @@ public class UserInterface {
         System.out.print("Ny titel: ");
         String title = scanner.nextLine();
 
+        System.out.print("Ny genre: ");
+        String genre = scanner.nextLine();
+
         System.out.print("Ny instruktør: ");
         String director = scanner.nextLine();
 
         int yearCreated = readInt("Nyt udgivelsesår: ");
 
+        int lengthInMinutes = readInt("Ny længde i minutter: ");
+
         System.out.print("Er filmen i farver? (true/false): ");
         boolean inColor = Boolean.parseBoolean(scanner.nextLine());
 
-        int lengthInMinutes = readInt("Ny længde i minutter: ");
 
-        System.out.print("Ny genre: ");
-        String genre = scanner.nextLine();
-
-        boolean success = controller.editMovie(movie, title, genre, yearCreated, inColor, lengthInMinutes, director);
+        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor);
 
         if (success) {
             System.out.println("Filmen er blevet redigeret.");
@@ -150,7 +151,7 @@ public class UserInterface {
             return;
         }
 
-        System.out.println("Vil du slette filmen? (ja/nej)");
+        System.out.print("Vil du slette filmen? (ja/nej)");
         String answer = scanner.nextLine();
 
         if (answer.equalsIgnoreCase("ja")) {

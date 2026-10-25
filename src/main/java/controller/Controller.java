@@ -9,11 +9,10 @@ import java.util.ArrayList;
 public class Controller {
     private MovieCollection movieCollection = new MovieCollection();
 
-    public void addMovie(String title, String director, int yearCreated,
-                         boolean inColor, int lengthInMinutes, String genre , LocalDate lastWatched) {
+    public void addMovie(String title, String genre, String director, int yearCreated,
+                         int lengthInMinutes, boolean inColor, LocalDate lastWatched) {
         movieCollection.addMovie(
-                title, director, yearCreated,
-                inColor, lengthInMinutes, genre, lastWatched
+                title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched
         );
     }
 
@@ -25,9 +24,9 @@ public class Controller {
         return movieCollection.searchMovies(searchtext);
     }
 
-    public boolean editMovie(Movie movie, String title, String genre, int yearCreated, boolean inColor, int lengthInMinutes, String director)
+    public boolean editMovie(Movie movie, String title, String genre, String director, int yearCreated, int lengthInMinutes, boolean inColor)
     {
-        return movieCollection.editMovie(movie, title, genre, director, yearCreated, inColor, lengthInMinutes);
+        return movieCollection.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor);
     }
 
     public boolean deleteMovie(Movie movie){
