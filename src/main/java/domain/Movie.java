@@ -76,6 +76,11 @@ public class Movie {
     public void setGenre(String genre){
         this.genre=genre;}
 
+    public void setLastWatched(LocalDate lastWatched)
+    {
+        this.lastWatched=lastWatched;
+    }
+
     @Override
     public String toString()
     {
@@ -87,6 +92,7 @@ public class Movie {
                 ", Længde: " + lengthInMinutes + " min., " +
                 "Sidst set: " + lastWatched;
     }
+
     //Én films oplysninger
     //Må ikke: udskrive eller læse input
 }

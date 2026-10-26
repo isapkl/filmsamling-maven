@@ -55,7 +55,8 @@ class MovieCollectionTest {
                 "Michael Curtiz 2",
                 1943,
                 120,
-                true
+                true,
+                LocalDate.of(2000, 6, 2)
         );
 
         // Assert
@@ -89,7 +90,9 @@ class MovieCollectionTest {
                 "New Director",
                 2020,
                 120,
-                true
+                true,
+                LocalDate.now()
+
         );
 
         // Assert

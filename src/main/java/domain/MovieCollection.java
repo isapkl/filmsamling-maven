@@ -38,7 +38,7 @@ public class MovieCollection {
 
     public boolean editMovie(Movie movie, String title, String genre,
                              String director, int yearCreated,
-                             int lengthInMinutes, boolean inColor) {
+                             int lengthInMinutes, boolean inColor, LocalDate lastWatched) {
         if (movies.contains(movie)){
             movie.setTitle(title);
             movie.setDirector(director);
@@ -46,6 +46,7 @@ public class MovieCollection {
             movie.setLengthInMinutes(lengthInMinutes);
             movie.setYearCreated(yearCreated);
             movie.setInColor(inColor);
+            movie.setLastWatched(lastWatched);
 
             return true;
         }
