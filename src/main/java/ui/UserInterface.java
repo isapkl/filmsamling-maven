@@ -30,6 +30,8 @@ public class UserInterface {
             System.out.println("3. Søg efter en film");
             System.out.println("4. Redigér en film");
             System.out.println("5. Fjern en film");
+            System.out.println("6. Markér en film som set");
+            System.out.println("7. Find film, du ikke har set længe - eller aldrig");
             System.out.println("0. Afslut programmet");
 
             System.out.print("Vælg: ");
@@ -136,8 +138,16 @@ public class UserInterface {
         System.out.print("Er filmen i farver? (true/false): ");
         boolean inColor = Boolean.parseBoolean(scanner.nextLine());
 
+        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
+        String input = scanner.nextLine();
 
-        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor);
+        LocalDate lastWatched = null;
+
+        if (!input.isBlank()) {
+            lastWatched = LocalDate.parse(input);
+        }
+
+        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
         if (success) {
             System.out.println("Filmen er blevet redigeret.");
@@ -205,7 +215,7 @@ public class UserInterface {
 
         System.out.print("Hvor mange dage siden? ");
         int days = readInt("");
-
+//
 //        for (Movie movie : movies) {
 //            if (movie.getLastWatched() == null ||
 //                    movie.getDaysSinceWatched(LocalDate.now()) >= days) {
