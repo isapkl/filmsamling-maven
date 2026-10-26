@@ -61,6 +61,10 @@ public class Movie {
     public String getGenre()
     {return genre;}
 
+    public LocalDate getLastWatched(){
+        return lastWatched;
+    }
+
     public void setDirector(String director){
         this.director= director;}
 
