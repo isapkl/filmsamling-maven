@@ -41,6 +41,8 @@ public class UserInterface {
                 case "3" -> searchMovies();
                 case "4" -> editMovie();
                 case "5" -> deleteMovie();
+                case "6" -> markAsWatched();
+                case "7" -> findMoviesNotWatchedRecently();
                 case "0" -> {
                     running = false;
                     System.out.println("Programmet afsluttes.");
@@ -165,6 +167,51 @@ public class UserInterface {
         } else {
             System.out.println("Sletning annulleret.");
         }
+    }
+
+    private void markAsWatched() {
+        System.out.println("Markér en film som set");
+
+        ArrayList<Movie> movies = controller.getMovies();
+
+        if (movies.isEmpty()){
+            System.out.println("Der er ingen film i samlingen");
+            return;
+        }
+
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i + 1) + ". " + movies.get(i));
+        }
+
+        int choice = readInt("Vælg en film: ");
+
+        if (choice < 1 || choice > movies.size()) {
+            System.out.println("Ugyldigt valg.");
+            return;
+        }
+
+        controller.markAsWatched(movies.get(choice - 1));
+    }
+
+    private void findMoviesNotWatchedRecently() {
+        ArrayList<Movie> movies = controller.getMovies();
+
+        System.out.println("Find film, du ikke har set længe - eller aldrig");
+
+        if (movies.isEmpty()) {
+            System.out.println("Der er ingen film i samlingen");
+            return;
+        }
+
+        System.out.print("Hvor mange dage siden? ");
+        int days = readInt("");
+
+//        for (Movie movie : movies) {
+//            if (movie.getLastWatched() == null ||
+//                    movie.getDaysSinceWatched(LocalDate.now()) >= days) {
+//                System.out.println(movie);
+//            }
+//        }
     }
 
     private Movie selectMovie() {

@@ -33,9 +33,9 @@ public class Controller {
         return movieCollection.deleteMovie(movie);
     }
 //    // NY: Markerer en film som set i dag
-//    public void markAsWatched(Movie movie) {
-//        movie.markAsWatched(LocalDate.now());
-//    }
+    public void markAsWatched(Movie movie) {
+        movie.markAsWatched(LocalDate.now());
+    }
 //
 //    // NY: Finder film  , der aldrig er set,
 //    // eller som sidst blev set for mere end det angivne antal dage siden
