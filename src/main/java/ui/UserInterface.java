@@ -5,6 +5,7 @@ import domain.Movie;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class UserInterface {
     private Controller controller;
     private Scanner scanner = new Scanner(System.in);
     boolean running = true;
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 
     public UserInterface() {
@@ -71,7 +73,7 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        LocalDate lastWatched = readLocalDate("Hvornår så du sidst filmen? (yyyy-MM-dd) eller enter for ingen dato: ");
+        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? (dd-MM-yyyy) eller enter for dagens dato: ");
 
         controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
@@ -129,7 +131,7 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        LocalDate lastWatched = readLocalDate("Hvornår så du sidst filmen? (yyyy-MM-dd) eller enter for ingen dato: ");
+        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? (dd-MM-yyyy) eller enter for dagens dato: ");
 
         boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
@@ -275,20 +277,20 @@ public class UserInterface {
         }
     }
 
-    private LocalDate readLocalDate(String prompt) {
+    private LocalDate readDate(String prompt) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine().trim();
 
             if (input.isBlank()) {
-                return null;
+                return LocalDate.now();
             }
 
             try {
-                return LocalDate.parse(input);
+                return LocalDate.parse(input, dateFormatter);
             }
             catch (DateTimeException e) {
-                System.out.println("Ugyldig dato. Brug format yyyy-MM-dd, fx 2026-10-27. Eller enter for ingen dato.");
+                System.out.println("Ugyldig dato. Brug dd-MM-yyyy. Prøv igen. Eller enter for dagens dato.");
             }
         }
     }
