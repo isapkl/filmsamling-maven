@@ -94,7 +94,8 @@ public class Movie {
                 ", Instruktør: " + director +
                 ", Udgivelsesår: " + yearCreated +
                 ", Længde: " + lengthInMinutes + " min., " +
-                "Sidst set: " + lastWatched;
+                "I farve: " + inColor +
+                ", Sidst set: " + lastWatched;
     }
 
     //Én films oplysninger
