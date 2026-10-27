@@ -16,34 +16,31 @@ public class Controller {
         );
     }
 
-    public ArrayList<Movie> getMovies(){
+    public ArrayList<Movie> getMovies() {
         return movieCollection.getMovies();
     }
 
-    public ArrayList<Movie> searchMovies(String searchtext){
+    public ArrayList<Movie> searchMovies(String searchtext) {
         return movieCollection.searchMovies(searchtext);
     }
 
-    public boolean editMovie(Movie movie, String title, String genre, String director, int yearCreated, int lengthInMinutes, boolean inColor, LocalDate lastWatched)
-    {
+    public boolean editMovie(Movie movie, String title, String genre, String director, int yearCreated, int lengthInMinutes, boolean inColor, LocalDate lastWatched) {
         return movieCollection.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
     }
 
-    public boolean deleteMovie(Movie movie){
+    public boolean deleteMovie(Movie movie) {
         return movieCollection.deleteMovie(movie);
     }
-//    // NY: Markerer en film som set i dag
+    //    // NY: Markerer en film som set i dag
     public void markAsWatched(Movie movie) {
         movie.markAsWatched(LocalDate.now());
     }
-//
-//    // NY: Finder film  , der aldrig er set,
-//    // eller som sidst blev set for mere end det angivne antal dage siden
-//
-//    public ArrayList<Movie> getMoviesNotWatchedForDays(int days) {
-//        LocalDate limit = LocalDate.now().minusDays(days);
-//        return movieCollection.getMoviesNotWatchedSince(limit);
+
+    public ArrayList<Movie> getMoviesNotWatchedForDays(int days) {
+        LocalDate limit = LocalDate.now().minusDays(days);
+        return movieCollection.findMoviesNotWatchedRecently(limit);
     }
+}
     //Det eneste, UserInterface taler med. Sender videre til MovieCollection
     //Må ikke: udskrive eller læse input
 
