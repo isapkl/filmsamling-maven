@@ -71,14 +71,8 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
-        String input = scanner.nextLine();
+        LocalDate lastWatched = readLocalDate("Hvornår så du sidst filmen? (yyyy-MM-dd) eller enter for ingen dato: ");
 
-        LocalDate lastWatched = null;
-
-        if (!input.isBlank()) {
-            lastWatched = LocalDate.parse(input);
-        }
         controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
         System.out.println("Filmen er blevet oprettet!");
@@ -135,14 +129,7 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
-        String input = scanner.nextLine();
-
-        LocalDate lastWatched = null;
-
-        if (!input.isBlank()) {
-            lastWatched = LocalDate.parse(input);
-        }
+        LocalDate lastWatched = readLocalDate("Hvornår så du sidst filmen? (yyyy-MM-dd) eller enter for ingen dato: ");
 
         boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
@@ -290,7 +277,7 @@ public class UserInterface {
 
     private LocalDate readLocalDate(String prompt) {
         while (true) {
-            System.out.println(prompt);
+            System.out.print(prompt);
             String input = scanner.nextLine().trim();
 
             if (input.isBlank()) {
@@ -301,7 +288,7 @@ public class UserInterface {
                 return LocalDate.parse(input);
             }
             catch (DateTimeException e) {
-                System.out.println("Ugyldig dato. Brug format yyyy-MM-dd, fx 2026-10-27.");
+                System.out.println("Ugyldig dato. Brug format yyyy-MM-dd, fx 2026-10-27. Eller enter for ingen dato.");
             }
         }
     }
