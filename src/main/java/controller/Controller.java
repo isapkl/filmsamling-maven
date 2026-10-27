@@ -32,17 +32,17 @@ public class Controller {
     public boolean deleteMovie(Movie movie){
         return movieCollection.deleteMovie(movie);
     }
-//    // NY: Markerer en film som set i dag
-//    public void markAsWatched(Movie movie) {
-//        movie.markAsWatched(LocalDate.now());
-//    }
-//
-//    // NY: Finder film  , der aldrig er set,
-//    // eller som sidst blev set for mere end det angivne antal dage siden
-//
-//    public ArrayList<Movie> getMoviesNotWatchedForDays(int days) {
-//        LocalDate limit = LocalDate.now().minusDays(days);
-//        return movieCollection.getMoviesNotWatchedSince(limit);
+    // NY: Markerer en film som set i dag
+    public void markAsWatched(Movie movie) {
+        movie.markAsWatched(LocalDate.now());
+    }
+
+    // NY: Finder film  , der aldrig er set,
+    // eller som sidst blev set for mere end det angivne antal dage siden
+
+    public ArrayList<Movie> getMoviesNotWatchedForDays(int days) {
+        LocalDate limit = LocalDate.now().minusDays(days);
+        return movieCollection.getMoviesNotWatchedSince(limit);
     }
     //Det eneste, UserInterface taler med. Sender videre til MovieCollection
     //Må ikke: udskrive eller læse input
