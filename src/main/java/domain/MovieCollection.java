@@ -56,6 +56,19 @@ public class MovieCollection {
     public boolean deleteMovie(Movie movie){
         return movies.remove(movie);
     }
+    public ArrayList<Movie> findMoviesNotWatchedRecently(LocalDate limit) {
+        ArrayList<Movie> matches = new ArrayList<>();
+
+        for (Movie movie : movies) {
+            LocalDate lastWatched = movie.getLastWatched();
+
+            if (lastWatched == null || !lastWatched.isAfter(limit)) {
+                matches.add(movie);
+            }
+        }
+
+        return matches;
+    }
 
     //Ejer listen af film: opretter, finder, retter og fjerner
     //Må ikke: udskrive eller læse input
