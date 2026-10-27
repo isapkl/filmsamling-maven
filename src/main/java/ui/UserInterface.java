@@ -3,6 +3,7 @@ package ui;
 import controller.Controller;
 import domain.Movie;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,6 +30,8 @@ public class UserInterface {
             System.out.println("3. Søg efter en film");
             System.out.println("4. Redigér en film");
             System.out.println("5. Fjern en film");
+            System.out.println("6. Markér en film som set");
+            System.out.println("7. Find film, du ikke har set længe - eller aldrig");
             System.out.println("0. Afslut programmet");
 
             System.out.print("Vælg: ");
@@ -40,6 +43,8 @@ public class UserInterface {
                 case "3" -> searchMovies();
                 case "4" -> editMovie();
                 case "5" -> deleteMovie();
+                case "6" -> markAsWatched();
+                case "7" -> findMoviesNotWatchedRecently();
                 case "0" -> {
                     running = false;
                     System.out.println("Programmet afsluttes.");
@@ -53,22 +58,30 @@ public class UserInterface {
         System.out.print("Indtast filmens titel: ");
         String title = scanner.nextLine();
 
+        System.out.print("Indtast filmens genre: ");
+        String genre = scanner.nextLine();
+
         System.out.print("Indtast instruktørens navn: ");
         String director = scanner.nextLine();
 
         System.out.print("Indtast filmens udgivelsesår: ");
         int yearCreated = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Er filmen i farver? (true/false): ");
-        boolean inColor = Boolean.parseBoolean(scanner.nextLine());
-
         System.out.print("Indtast filmens længde i minutter: ");
         int lengthInMinutes = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Indtast filmens genre: ");
-        String genre = scanner.nextLine();
+        System.out.print("Er filmen i farver? (true/false): ");
+        boolean inColor = Boolean.parseBoolean(scanner.nextLine());
 
-        controller.addMovie(title, director, yearCreated, inColor, lengthInMinutes, genre);
+        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
+        String input = scanner.nextLine();
+
+        LocalDate lastWatched = null;
+
+        if (!input.isBlank()) {
+            lastWatched = LocalDate.parse(input);
+        }
+        controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
         System.out.println("Filmen er blevet oprettet!");
     }
@@ -112,20 +125,29 @@ public class UserInterface {
         System.out.print("Ny titel: ");
         String title = scanner.nextLine();
 
+        System.out.print("Ny genre: ");
+        String genre = scanner.nextLine();
+
         System.out.print("Ny instruktør: ");
         String director = scanner.nextLine();
 
         int yearCreated = readInt("Nyt udgivelsesår: ");
 
+        int lengthInMinutes = readInt("Ny længde i minutter: ");
+
         System.out.print("Er filmen i farver? (true/false): ");
         boolean inColor = Boolean.parseBoolean(scanner.nextLine());
 
-        int lengthInMinutes = readInt("Ny længde i minutter: ");
+        System.out.print("Hvornår så du sidst filmen? (yyyy-MM-dd): ");
+        String input = scanner.nextLine();
 
-        System.out.print("Ny genre: ");
-        String genre = scanner.nextLine();
+        LocalDate lastWatched = null;
 
-        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, inColor, lengthInMinutes);
+        if (!input.isBlank()) {
+            lastWatched = LocalDate.parse(input);
+        }
+
+        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
         if (success) {
             System.out.println("Filmen er blevet redigeret.");
@@ -141,7 +163,7 @@ public class UserInterface {
             return;
         }
 
-        System.out.println("Vil du slette filmen? (ja/nej)");
+        System.out.print("Vil du slette filmen? (ja/nej)");
         String answer = scanner.nextLine();
 
         if (answer.equalsIgnoreCase("ja")) {
@@ -155,6 +177,51 @@ public class UserInterface {
         } else {
             System.out.println("Sletning annulleret.");
         }
+    }
+
+    private void markAsWatched() {
+        System.out.println("Markér en film som set");
+
+        ArrayList<Movie> movies = controller.getMovies();
+
+        if (movies.isEmpty()){
+            System.out.println("Der er ingen film i samlingen");
+            return;
+        }
+
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i + 1) + ". " + movies.get(i));
+        }
+
+        int choice = readInt("Vælg en film: ");
+
+        if (choice < 1 || choice > movies.size()) {
+            System.out.println("Ugyldigt valg.");
+            return;
+        }
+
+        controller.markAsWatched(movies.get(choice - 1));
+    }
+
+    private void findMoviesNotWatchedRecently() {
+        ArrayList<Movie> movies = controller.getMovies();
+
+        System.out.println("Find film, du ikke har set længe - eller aldrig");
+
+        if (movies.isEmpty()) {
+            System.out.println("Der er ingen film i samlingen");
+            return;
+        }
+
+        System.out.print("Hvor mange dage siden? ");
+        int days = readInt("");
+//
+//        for (Movie movie : movies) {
+//            if (movie.getLastWatched() == null ||
+//                    movie.getDaysSinceWatched(LocalDate.now()) >= days) {
+//                System.out.println(movie);
+//            }
+//        }
     }
 
     private Movie selectMovie() {

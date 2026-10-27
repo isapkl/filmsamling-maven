@@ -1,5 +1,8 @@
 package domain;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class Movie {
     private String title;
     private String director;
@@ -7,15 +10,29 @@ public class Movie {
     private boolean inColor;
     private int lengthInMinutes;
     private String genre;
+    private LocalDate lastWatched;
 
-    public Movie(String title, String director, int yearCreated, boolean inColor,
-                 int lengthInMinutes, String genre) {
+    public Movie(String title, String genre, String director, int yearCreated, int lengthInMinutes,
+                 boolean inColor, LocalDate lastWatched) {
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
         this.inColor = inColor;
         this.lengthInMinutes = lengthInMinutes;
         this.genre = genre;
+        this.lastWatched=lastWatched;
+    }
+    public boolean hasBeenWatched() {
+        return lastWatched != null;
+    }
+
+    public void markAsWatched(LocalDate date) {
+        lastWatched = date;
+    }
+
+    // Antal dage fra lastWatched til today. Må kun kaldes, hvis hasBeenWatched() er true.
+    public long getDaysSinceWatched(LocalDate today) {
+        return ChronoUnit.DAYS.between(lastWatched, today);
     }
 
     // ... resten af getterne og setterne
@@ -44,6 +61,10 @@ public class Movie {
     public String getGenre()
     {return genre;}
 
+    public LocalDate getLastWatched(){
+        return lastWatched;
+    }
+
     public void setDirector(String director){
         this.director= director;}
 
@@ -59,17 +80,23 @@ public class Movie {
     public void setGenre(String genre){
         this.genre=genre;}
 
+    public void setLastWatched(LocalDate lastWatched)
+    {
+        this.lastWatched=lastWatched;
+    }
+
     @Override
     public String toString()
     {
         System.out.println("Film: ");
         return "Titel: " + title +
-                ", Udgivelsesår: " + yearCreated +
-                ", Instruktør: " + director +
                 ", Genre: " + genre +
-                ", Længde: " + lengthInMinutes + " min";
+                ", Instruktør: " + director +
+                ", Udgivelsesår: " + yearCreated +
+                ", Længde: " + lengthInMinutes + " min., " +
+                "Sidst set: " + lastWatched;
     }
+
     //Én films oplysninger
     //Må ikke: udskrive eller læse input
 }
-

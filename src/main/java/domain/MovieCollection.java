@@ -1,15 +1,17 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+
 
 public class MovieCollection {
     private ArrayList<Movie> movies = new ArrayList<>();
 
 
-    public void addMovie(String title, String director, int yearCreated, boolean inColor,
-                         int lengthInMinutes, String genre)
+    public void addMovie(String title, String genre, String director, int yearCreated, int lengthInMinutes,
+                         boolean inColor, LocalDate lastWatched)
     {
-        Movie movie= new Movie(title, director, yearCreated, inColor, lengthInMinutes, genre);
+        Movie movie= new Movie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
         movies.add(movie);
     }
 
@@ -34,7 +36,9 @@ public class MovieCollection {
         return matches;
     }
 
-    public boolean editMovie(Movie movie, String title, String director, int yearCreated, boolean inColor, int lengthInMinutes, String genre) {
+    public boolean editMovie(Movie movie, String title, String genre,
+                             String director, int yearCreated,
+                             int lengthInMinutes, boolean inColor, LocalDate lastWatched) {
         if (movies.contains(movie)){
             movie.setTitle(title);
             movie.setDirector(director);
@@ -42,6 +46,7 @@ public class MovieCollection {
             movie.setLengthInMinutes(lengthInMinutes);
             movie.setYearCreated(yearCreated);
             movie.setInColor(inColor);
+            movie.setLastWatched(lastWatched);
 
             return true;
         }
@@ -55,4 +60,3 @@ public class MovieCollection {
     //Ejer listen af film: opretter, finder, retter og fjerner
     //Må ikke: udskrive eller læse input
 }
-
