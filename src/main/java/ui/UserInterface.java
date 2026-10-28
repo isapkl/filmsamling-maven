@@ -75,9 +75,14 @@ public class UserInterface {
 
         LocalDate lastWatched = readDate("Hvornår så du sidst filmen? Brug (dd-MM-yyyy), 'aldrig' eller Enter for dagens dato: ");
 
-        controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
+        try {
+            controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
+            System.out.println("Filmen er blevet oprettet!");
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Filmen blev ikke oprettet: " + e.getMessage());
+        }
 
-        System.out.println("Filmen er blevet oprettet!");
     }
 
     private void showAllMovies() {
@@ -133,13 +138,20 @@ public class UserInterface {
 
         LocalDate lastWatched = readDate("Hvornår så du sidst filmen? Brug (dd-MM-yyyy), 'aldrig' eller Enter for dagens dato: ");
 
-        boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
+        try {
+            boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
-        if (success) {
-            System.out.println("Filmen er blevet redigeret.");
-        } else {
-            System.out.println("Filmen kunne ikke redigeres.");
+            if (success) {
+                System.out.println("Filmen er blevet redigeret.");
+            } else {
+                System.out.println("Filmen kunne ikke redigeres.");
+            }
         }
+        catch (IllegalArgumentException e) {
+            System.out.println("Filmen blev ikke redigeret: " + e.getMessage());
+        }
+
+
     }
 
     private void deleteMovie() {
