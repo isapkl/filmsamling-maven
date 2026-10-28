@@ -12,23 +12,26 @@ public class Movie {
     private int lengthInMinutes;
     private String genre;
     private LocalDate lastWatched;
+    private static final int FIRST_MOVIE_YEAR = 1888;
 
-    public Movie(String title, String genre, String director, int yearCreated, int lengthInMinutes,
+    public Movie(String title, String genre, String director,
+                 int yearCreated, int lengthInMinutes,
                  boolean inColor, LocalDate lastWatched) {
-        this.title = title;
-        this.director = director;
-        this.yearCreated = yearCreated;
-        this.inColor = inColor;
-        this.lengthInMinutes = lengthInMinutes;
-        this.genre = genre;
-        this.lastWatched=lastWatched;
+
+        setTitle(title);
+        setGenre(genre);
+        setDirector(director);
+        setYearCreated(yearCreated);
+        setLengthInMinutes(lengthInMinutes);
+        setInColor(inColor);
+        setLastWatched(lastWatched);
     }
     public boolean hasBeenWatched() {
         return lastWatched != null;
     }
 
     public void markAsWatched(LocalDate date) {
-        lastWatched = date;
+        setLastWatched(date);
     }
 
     // Antal dage fra lastWatched til today. Må kun kaldes, hvis hasBeenWatched() er true.
@@ -42,19 +45,43 @@ public class Movie {
         return title;
     }
 
+    public int getYearCreated() {
+        return yearCreated;
+    }
+
     public boolean isInColor() {
         return inColor;
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
+
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Titlen må ikke være tom!"
+            );
+        }
+
         this.title = title;
     }
 
     public String getDirector()
     { return director;}
 
-    public int getYearCreated()
-    {return yearCreated;}
+    public void setYearCreated(int yearCreated) {
+
+        int latestYear = LocalDate.now().getYear() + 1;
+
+        if (yearCreated < FIRST_MOVIE_YEAR ||
+                yearCreated > latestYear) {
+
+            throw new IllegalArgumentException(
+                    "Årstallet skal være mellem " +
+                            FIRST_MOVIE_YEAR + " og " + latestYear
+            );
+        }
+
+        this.yearCreated = yearCreated;
+    }
 
     public int getLengthInMinutes()
     {return lengthInMinutes;}
@@ -66,31 +93,59 @@ public class Movie {
         return lastWatched;
     }
 
-    public void setDirector(String director){
-        this.director= director;}
+    public void setDirector(String director) {
 
-    public void setYearCreated(int yearCreated){
-        this.yearCreated= yearCreated;}
+        if (director == null || director.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Instruktørens navn må ikke være tomt!"
+            );
+        }
+
+        this.director = director;
+    }
+
 
     public void setInColor(boolean inColor){
         this.inColor= inColor;}
 
-    public void setLengthInMinutes(int lengthInMinutes){
-        this.lengthInMinutes=lengthInMinutes;}
+    public void setLengthInMinutes(int lengthInMinutes) {
 
-    public void setGenre(String genre){
-        this.genre=genre;}
+        if (lengthInMinutes < 1) {
+            throw new IllegalArgumentException(
+                    "Filmen skal vare mindst 1 minut"
+            );
+        }
 
-    public void setLastWatched(LocalDate lastWatched)
-    {
-        this.lastWatched=lastWatched;
+        this.lengthInMinutes = lengthInMinutes;
+    }
+
+    public void setGenre(String genre) {
+
+        if (genre == null || genre.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Genren må ikke være tom!"
+            );
+        }
+
+        this.genre = genre;
+    }
+
+    public void setLastWatched(LocalDate lastWatched) {
+
+        if (lastWatched != null && lastWatched.isAfter(LocalDate.now())) {
+
+            throw new IllegalArgumentException(
+                    "Du har ikke set filmen endnu, datoen er i fremtiden."
+            );
+        }
+
+        this.lastWatched = lastWatched;
     }
 
     @Override
     public String toString()
     {
-        System.out.println("Film: ");
-        return "Titel: " + title +
+        return "Film " + "Titel: " + title +
                 ", Genre: " + genre +
                 ", Instruktør: " + director +
                 ", Udgivelsesår: " + yearCreated +
