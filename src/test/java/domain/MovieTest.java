@@ -67,5 +67,91 @@ class MovieTest {
         assertEquals("Michael Curtiz 2", casablanca.getDirector());
     }
 
+    @Test
+    void TestInvalidDirector() {
+
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.setDirector("");
+        });
+    }
+
+    @Test
+    void testInvalidTitle() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.setTitle("");
+        });
+
+        assertEquals("Casablanca", casablanca.getTitle());
+    }
+
+    @Test
+    void testYearBefore1888() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.setYearCreated(1887);
+        });
+
+        assertEquals(1942, casablanca.getYearCreated());
+    }
+
+    @Test
+    void testYear1888Accepted() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        casablanca.setYearCreated(1888);
+
+        assertEquals(1888, casablanca.getYearCreated());
+    }
+
+    @Test
+    void testFutureYearRejected() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        int futureYear = LocalDate.now().getYear() + 2;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.setYearCreated(futureYear);
+        });
+
+        assertEquals(1942, casablanca.getYearCreated());
+    }
+
+    @Test
+    void testInvalidLength() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.setLengthInMinutes(0);
+        });
+
+        assertEquals(102, casablanca.getLengthInMinutes());
+    }
+
+    @Test
+    void testFutureWatchedDate() {
+        Movie casablanca = collection.searchMovies("Casablanca").get(0);
+
+        LocalDate futureDate = LocalDate.now().plusDays(5);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            casablanca.markAsWatched(futureDate);
+        });
+
+        assertEquals(LocalDate.of(2020, 5, 10),
+                casablanca.getLastWatched());
+    }
+
+    @Test
+    void testInvalidMovieCreation() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Movie("Titanic", "Drama", "James Cameron",
+                    1500, 195, true, null);
+        });
+    }
 
 }

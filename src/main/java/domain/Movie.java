@@ -45,6 +45,10 @@ public class Movie {
         return title;
     }
 
+    public int getYearCreated() {
+        return yearCreated;
+    }
+
     public boolean isInColor() {
         return inColor;
     }
