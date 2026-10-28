@@ -196,6 +196,7 @@ public class UserInterface {
             int choice = readInt("Vælg en film: ");
 
             if (choice == 0) {
+                System.out.println("Handlingen blev annulleret.");
                 return;
             }
 
@@ -204,9 +205,25 @@ public class UserInterface {
                 continue;
             }
 
-            controller.markAsWatched(movies.get(choice - 1));
-            System.out.println("Filmen er markeret som set.");
-            return;
+            Movie movie = movies.get(choice - 1);
+
+            while (true) {
+                LocalDate date = readDate("Hvornår så du filmen? (dd-MM-yyyy), 'aldrig' eller Enter for dagens dato: ");
+
+                if (date == null) {
+                    System.out.println("Du skal indtaste en dato. Prøv igen.");
+                    continue;
+                }
+
+                try {
+                    controller.markAsWatched(movie, date);
+                    System.out.println("Filmen er markeret som set.");
+                    return;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Prøv igen.");
+                }
+            }
         }
     }
 
