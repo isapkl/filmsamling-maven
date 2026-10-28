@@ -73,7 +73,7 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? (dd-MM-yyyy) eller enter for dagens dato: ");
+        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? Brug (dd-MM-yyyy), 'aldrig' eller Enter for dagens dato: ");
 
         controller.addMovie(title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
@@ -131,7 +131,7 @@ public class UserInterface {
 
         boolean inColor = readBoolean("Er filmen i farver? (ja/nej): ");
 
-        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? (dd-MM-yyyy) eller enter for dagens dato: ");
+        LocalDate lastWatched = readDate("Hvornår så du sidst filmen? Brug (dd-MM-yyyy), 'aldrig' eller Enter for dagens dato: ");
 
         boolean success = controller.editMovie(movie, title, genre, director, yearCreated, lengthInMinutes, inColor, lastWatched);
 
@@ -199,24 +199,28 @@ public class UserInterface {
     }
 
     private void findMoviesNotWatchedRecently() {
-        ArrayList<Movie> movies = controller.getMovies();
 
-        System.out.println("Find film, du ikke har set længe - eller aldrig");
+        int days = readInt("Hvor mange dage siden? ");
 
-        if (movies.isEmpty()) {
-            System.out.println("Der er ingen film i samlingen");
+        ArrayList<Movie> matches = controller.getMoviesNotWatchedForDays(days);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        if (matches.isEmpty()) {
+            System.out.println("Ingen film matcher.");
             return;
         }
 
-        System.out.print("Hvor mange dage siden? ");
-        int days = readInt("");
-//
-//        for (Movie movie : movies) {
-//            if (movie.getLastWatched() == null ||
-//                    movie.getDaysSinceWatched(LocalDate.now()) >= days) {
-//                System.out.println(movie);
-//            }
-//        }
+        for (Movie movie : matches) {
+            if (movie.hasBeenWatched()) {
+                String date = movie.getLastWatched().format(formatter);
+                long daysSince = movie.getDaysSinceWatched(LocalDate.now());
+
+                System.out.println("Titel: " + movie.getTitle() + ", Instruktør: " + movie.getDirector() + " — sidst set: "
+                        + date + " (" + daysSince + " dage siden).");
+            } else {
+                System.out.println("Titel: " + movie.getTitle() + ", Instruktør: " + movie.getDirector() + " — aldrig set.");
+            }
+        }
     }
 
     private Movie selectMovie() {
@@ -281,6 +285,10 @@ public class UserInterface {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("aldrig")) {
+                return null;
+            }
 
             if (input.isBlank()) {
                 return LocalDate.now();

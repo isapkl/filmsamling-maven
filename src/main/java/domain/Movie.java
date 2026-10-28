@@ -2,6 +2,7 @@ package domain;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 
 public class Movie {
     private String title;
@@ -146,7 +147,8 @@ public class Movie {
                 ", Udgivelsesår: " + yearCreated +
                 ", Længde: " + lengthInMinutes + " min., " +
                 "I farve: " + inColor +
-                ", Sidst set: " + lastWatched;
+                ", Sidst set: " + (lastWatched == null ? "Aldrig" :
+                lastWatched.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
 
     //Én films oplysninger
