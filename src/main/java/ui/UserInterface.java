@@ -3,6 +3,7 @@ package ui;
 import controller.Controller;
 import domain.Movie;
 
+import java.io.FileNotFoundException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +28,22 @@ public class UserInterface {
 
         System.out.println("Velkommen til min filmsamling!");
 
+
+        try {
+            int loadedCount = controller.loadMovies();
+
+            System.out.println(loadedCount + " film blev indlæst.");
+
+            if (controller.getSkippedLineCount() > 0) {
+                System.out.println(controller.getSkippedLineCount()
+                        + " linjer kunne ikke indlæses.");
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Ingen gemt filmsamling endnu. "
+                    + "Du starter med en tom samling.");
+        }
+
         while (running){
             System.out.println("1. Opret en film");
             System.out.println("2. Vis alle film");
@@ -49,6 +66,7 @@ public class UserInterface {
                 case "6" -> markAsWatched();
                 case "7" -> findMoviesNotWatchedRecently();
                 case "0" -> {
+                    saveMovies();
                     running = false;
                     System.out.println("Programmet afsluttes.");
                 }
@@ -329,6 +347,23 @@ public class UserInterface {
             catch (DateTimeException e) {
                 System.out.println("Ugyldig dato. Brug dd-MM-yyyy. Prøv igen. Eller enter for dagens dato.");
             }
+        }
+    }
+
+
+    private void saveMovies() {
+        try {
+            boolean saved = controller.saveMoviesIfChanged();
+
+            if (saved) {
+                System.out.println("Filmsamlingen er gemt.");
+            } else {
+                System.out.println("Ingen ændringer – intet at gemme.");
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Filmsamlingen kunne ikke gemmes: "
+                    + e.getMessage());
         }
     }
 
