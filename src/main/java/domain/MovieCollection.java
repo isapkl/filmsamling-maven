@@ -45,8 +45,6 @@ public class MovieCollection {
                              int lengthInMinutes, boolean inColor, LocalDate lastWatched) {
         if (movies.contains(movie)){
 
-            new Movie(title, genre, director, yearCreated,
-                    lengthInMinutes, inColor, lastWatched);
             movie.setTitle(title);
             movie.setDirector(director);
             movie.setGenre(genre);
