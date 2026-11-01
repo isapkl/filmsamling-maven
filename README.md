@@ -1,4 +1,4 @@
-# Filmsamling - hold E26
+# Filmsamling - hold 5
 
 | Fornavn  | GitHub |
 |----------|--------|
