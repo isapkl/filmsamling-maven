@@ -1,6 +1,6 @@
 package controller;
 
-import FileHandling.FileHandler;
+import filehandling.FileHandler;
 import domain.Movie;
 import domain.MovieCollection;
 

@@ -1,4 +1,4 @@
-package FileHandling;
+package filehandling;
 import domain.Movie;
 
 import java.io.File;
