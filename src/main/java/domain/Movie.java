@@ -14,6 +14,9 @@ public class Movie {
     private LocalDate lastWatched;
     private static final int FIRST_MOVIE_YEAR = 1888;
 
+
+
+
     public Movie(String title, String genre, String director,
                  int yearCreated, int lengthInMinutes,
                  boolean inColor, LocalDate lastWatched) {
@@ -33,6 +36,17 @@ public class Movie {
     public void markAsWatched(LocalDate date) {
         setLastWatched(date);
     }
+    public void setLastWatched(LocalDate lastWatched) {
+
+        if (lastWatched != null && lastWatched.isAfter(LocalDate.now())) {
+
+            throw new IllegalArgumentException(
+                    "Du har ikke set filmen endnu, datoen er i fremtiden."
+            );
+        }
+
+        this.lastWatched = lastWatched;
+    }
 
     // Antal dage fra lastWatched til today. Må kun kaldes, hvis hasBeenWatched() er true.
     public long getDaysSinceWatched(LocalDate today) {
@@ -43,14 +57,6 @@ public class Movie {
 
     public String getTitle(){
         return title;
-    }
-
-    public int getYearCreated() {
-        return yearCreated;
-    }
-
-    public boolean isInColor() {
-        return inColor;
     }
 
     public void setTitle(String title) {
@@ -64,15 +70,16 @@ public class Movie {
         this.title = title;
     }
 
-    public String getDirector()
-    { return director;}
+
+    public int getYearCreated() {
+        return yearCreated;
+    }
 
     public void setYearCreated(int yearCreated) {
 
         int latestYear = LocalDate.now().getYear() + 1;
 
-        if (yearCreated < FIRST_MOVIE_YEAR ||
-                yearCreated > latestYear) {
+        if (yearCreated < FIRST_MOVIE_YEAR || yearCreated > latestYear) {
 
             throw new IllegalArgumentException(
                     "Årstallet skal være mellem " +
@@ -83,15 +90,18 @@ public class Movie {
         this.yearCreated = yearCreated;
     }
 
-    public int getLengthInMinutes()
-    {return lengthInMinutes;}
 
-    public String getGenre()
-    {return genre;}
-
-    public LocalDate getLastWatched(){
-        return lastWatched;
+    public boolean isInColor() {
+        return inColor;
     }
+
+    public void setInColor(boolean inColor)
+
+    {this.inColor= inColor;}
+
+    public String getDirector()
+
+    { return director;}
 
     public void setDirector(String director) {
 
@@ -104,9 +114,9 @@ public class Movie {
         this.director = director;
     }
 
+    public int getLengthInMinutes()
 
-    public void setInColor(boolean inColor){
-        this.inColor= inColor;}
+    {return lengthInMinutes;}
 
     public void setLengthInMinutes(int lengthInMinutes) {
 
@@ -119,6 +129,8 @@ public class Movie {
         this.lengthInMinutes = lengthInMinutes;
     }
 
+    public String getGenre()
+    {return genre;}
     public void setGenre(String genre) {
 
         if (genre == null || genre.isBlank()) {
@@ -130,17 +142,13 @@ public class Movie {
         this.genre = genre;
     }
 
-    public void setLastWatched(LocalDate lastWatched) {
 
-        if (lastWatched != null && lastWatched.isAfter(LocalDate.now())) {
-
-            throw new IllegalArgumentException(
-                    "Du har ikke set filmen endnu, datoen er i fremtiden."
-            );
-        }
-
-        this.lastWatched = lastWatched;
+    public LocalDate getLastWatched(){
+        return lastWatched;
     }
+
+
+
 
     @Override
     public String toString()
