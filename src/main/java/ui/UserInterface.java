@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class UserInterface {
     private Controller controller;
     private Scanner scanner = new Scanner(System.in);
-    boolean running = true;
+
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 
@@ -28,6 +28,7 @@ public class UserInterface {
 
         System.out.println("Velkommen til min filmsamling!");
 
+        boolean running = true;
 
         try {
             int loadedCount = controller.loadMovies();
@@ -52,6 +53,7 @@ public class UserInterface {
             System.out.println("5. Fjern en film");
             System.out.println("6. Markér en film som set");
             System.out.println("7. Find film, du ikke har set længe - eller aldrig");
+            System.out.println("8. Vis film sorteret efter: Titel, genre, instruktør, længde eller årstal");
             System.out.println("0. Afslut programmet");
 
             System.out.print("Vælg: ");
@@ -59,12 +61,13 @@ public class UserInterface {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case "1" -> createMovie();
-                case "2" -> showAllMovies();
+                case "2" -> printMovies();
                 case "3" -> searchMovies();
                 case "4" -> editMovie();
                 case "5" -> deleteMovie();
                 case "6" -> markAsWatched();
                 case "7" -> findMoviesNotWatchedRecently();
+                case "8" -> printMoviesByChoice();
                 case "0" -> {
                     saveMovies();
                     running = false;
@@ -103,8 +106,8 @@ public class UserInterface {
 
     }
 
-    private void showAllMovies() {
-        ArrayList<Movie> movies = controller.getMovies();
+    private void printMovies() {
+        ArrayList<Movie> movies = controller.getMoviesSortedByTitle();
 
         if (movies.isEmpty()){
             System.out.println("Der er ingen film i samlingen");
