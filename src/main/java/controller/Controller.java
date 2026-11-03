@@ -57,7 +57,7 @@ public class Controller {
         }
         return success;
     }
-    //    // NY: Markerer en film som set i dag
+    // Markerer en film som set i dag
     public void markAsWatched(Movie movie, LocalDate date) {
         movie.markAsWatched(date);
         changed = true;
@@ -119,7 +119,5 @@ public class Controller {
     }
 
 }
-    //Det eneste, UserInterface taler med. Sender videre til MovieCollection
-    //Må ikke: udskrive eller læse input
 
 

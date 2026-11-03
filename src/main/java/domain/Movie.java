@@ -53,7 +53,6 @@ public class Movie {
         return ChronoUnit.DAYS.between(lastWatched, today);
     }
 
-    // ... resten af getterne og setterne
 
     public String getTitle(){
         return title;
@@ -162,7 +161,4 @@ public class Movie {
                 ", Sidst set: " + (lastWatched == null ? "Aldrig" :
                 lastWatched.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
-
-    //Én films oplysninger
-    //Må ikke: udskrive eller læse input
 }

@@ -80,7 +80,4 @@ public class MovieCollection {
         sortedMovies.sort(comparator);
         return sortedMovies;
     }
-
-    //Ejer listen af film: opretter, finder, retter og fjerner
-    //Må ikke: udskrive eller læse input
 }

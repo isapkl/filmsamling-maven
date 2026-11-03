@@ -21,9 +21,7 @@ public class UserInterface {
     public UserInterface() {
         controller = new Controller();
     }
-    //Menuen kører i en løkke i startProgram(), indtil brugeren vælger at afslutte.
-    //Læs menuvalget som tekst og brug en switch på teksten –
-    // så går programmet ikke ned, hvis brugeren skriver hej i stedet for et tal:
+
 
     public void startProgram(){
 
@@ -407,8 +405,5 @@ public class UserInterface {
                     + e.getMessage());
         }
     }
-
-    //Al kommunikation med brugeren: Menu, System.out og Scanner findes kun i UserInterface
-    //Må ikke: holde på film eller ændre dem selv
 }
 

@@ -6,5 +6,4 @@ public class Main {
 
         ui.startProgram();
     }
-    //Opretter UserInterface og kalder startProgram() – intet andet
 }
