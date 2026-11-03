@@ -2,6 +2,7 @@ package ui;
 
 import controller.Controller;
 import domain.Movie;
+import domain.SortField;
 
 import java.io.FileNotFoundException;
 import java.time.DateTimeException;
@@ -115,6 +116,39 @@ public class UserInterface {
         }
 
         for (Movie movie : movies){
+            System.out.println(movie);
+        }
+    }
+
+    private void printMoviesByChoice() {
+
+        System.out.println("--- Sorter film ---");
+        System.out.println("1. Titel");
+        System.out.println("2. Genre");
+        System.out.println("3. Instruktør");
+        System.out.println("4. Årstal");
+        System.out.println("5. Længde");
+
+        int choice = readInt("Vælg sortering: ");
+
+        SortField field = null;
+
+        switch (choice) {
+            case 1 -> field = SortField.TITLE;
+            case 2 -> field = SortField.GENRE;
+            case 3 -> field = SortField.DIRECTOR;
+            case 4 -> field = SortField.YEAR;
+            case 5 -> field = SortField.LENGTH;
+        }
+
+        ArrayList<Movie> movies = controller.getMoviesSortedBy(field);
+
+        if (movies.isEmpty()) {
+            System.out.println("Der er ingen film i samlingen");
+            return;
+        }
+
+        for (Movie movie : movies) {
             System.out.println(movie);
         }
     }
