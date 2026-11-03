@@ -3,10 +3,17 @@ package controller;
 import filehandling.FileHandler;
 import domain.Movie;
 import domain.MovieCollection;
+import domain.SortField;
+import domain.TitleComparator;
+import domain.DirectorComparator;
+import domain.YearComparator;
+import domain.LengthComparator;
+import domain.GenreComparator;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Controller {
     private MovieCollection movieCollection = new MovieCollection();
@@ -84,6 +91,31 @@ public class Controller {
         changed = false;
 
         return true;
+    }
+
+    // Henter film sorteret efter titel
+
+    public ArrayList<Movie> getMoviesSortedByTitle() {
+        return getMoviesSortedBy(SortField.TITLE);
+    }
+
+    // Henter film sorteret efter brugerens valg
+
+    public ArrayList<Movie> getMoviesSortedBy(SortField sortField) {
+        Comparator<Movie> comparator = getComparator(sortField);
+        return movieCollection.getSortedMovies(comparator);
+    }
+
+    // Oversætter enum-værdien til den rigtige Comparator
+
+    private Comparator<Movie> getComparator(SortField sortField) {
+        return switch (sortField) {
+            case TITLE -> new TitleComparator();
+            case DIRECTOR -> new DirectorComparator();
+            case YEAR -> new YearComparator();
+            case LENGTH -> new LengthComparator();
+            case GENRE -> new GenreComparator();
+        };
     }
 
 }
