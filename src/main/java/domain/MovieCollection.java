@@ -2,6 +2,7 @@ package domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 public class MovieCollection {
@@ -73,6 +74,11 @@ public class MovieCollection {
         }
 
         return matches;
+    }
+    public ArrayList<Movie> getSortedMovies(Comparator<Movie> comparator) {
+        ArrayList<Movie> sortedMovies = new ArrayList<>(movies);
+        sortedMovies.sort(comparator);
+        return sortedMovies;
     }
 
     //Ejer listen af film: opretter, finder, retter og fjerner
