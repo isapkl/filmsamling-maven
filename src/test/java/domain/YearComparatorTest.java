@@ -33,5 +33,4 @@ class YearComparatorTest {
         // Assert
         assertTrue(result > 0);
     }
-
 }

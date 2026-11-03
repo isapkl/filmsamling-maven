@@ -21,7 +21,7 @@ class TitleComparatorTest {
     }
 
     @Test
-    void MovieCollection_getMoviesSorted_titleSortedAlphabetically() {
+    void titleSortedAlphabetically() {
         // Arrange
         TitleComparator comparator = new TitleComparator();
 
