@@ -87,7 +87,7 @@ public class UserInterface {
         System.out.print("Indtast instruktørens navn: ");
         String director = scanner.nextLine();
 
-        int yearCreated = readInt("Indtast filmens udgivelsesår: ");
+        int yearCreated = readMovieYear("Indtast filmens udgivelsesår: ");
 
         int lengthInMinutes = readInt("Indtast filmens længde i minutter: ");
 
@@ -187,7 +187,7 @@ public class UserInterface {
         System.out.print("Ny instruktør: ");
         String director = scanner.nextLine();
 
-        int yearCreated = readInt("Nyt udgivelsesår: ");
+        int yearCreated = readMovieYear("Nyt udgivelsesår: ");
 
         int lengthInMinutes = readInt("Ny længde i minutter: ");
 
@@ -386,6 +386,21 @@ public class UserInterface {
             catch (DateTimeException e) {
                 System.out.println("Ugyldig dato. Brug dd-MM-yyyy. Prøv igen. Eller enter for dagens dato.");
             }
+        }
+    }
+
+    private int readMovieYear(String prompt) {
+        int year;
+
+        while (true) {
+            year = readInt(prompt);
+
+            int latestYear = LocalDate.now().getYear() + 1;
+
+            if (year >= 1888 && year <= latestYear) {
+                return year;
+            }
+            System.out.println("Ugyldigt årstal. Indtast et år mellem 1888 og " + latestYear + ".");
         }
     }
 
