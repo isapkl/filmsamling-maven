@@ -28,6 +28,7 @@ Projektet bruger Maven og JDK 25.
 - Markér en film som set på en bestemt dato.
 - Find film, der ikke er set længe, eller aldrig er set.
 - Validering af filmoplysninger og håndtering af forkert input.
+- Vis film sorteret efter titel, genre, instruktør, længde eller årstal.
 
 ## Kendte mangler
 
