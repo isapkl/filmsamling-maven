@@ -139,6 +139,10 @@ public class UserInterface {
             case 3 -> field = SortField.DIRECTOR;
             case 4 -> field = SortField.YEAR;
             case 5 -> field = SortField.LENGTH;
+            default -> {
+                System.out.println("Ugyldigt valg.");
+                return;
+            }
         }
 
         ArrayList<Movie> movies = controller.getMoviesSortedBy(field);
