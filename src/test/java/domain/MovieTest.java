@@ -20,7 +20,7 @@ class MovieTest {
     }
 
     @Test
-    void GetMovieTitle() {
+    void getMovieTitle() {
         // Arrange
         Movie casablanca = collection.searchMovies("Casablanca").get(0);
 
@@ -32,7 +32,7 @@ class MovieTest {
     }
 
     @Test
-    void GetMovieDirector() {
+    void getMovieDirector() {
         // Arrange
         Movie casablanca = collection.searchMovies("Casablanca").get(0);
 
@@ -44,7 +44,7 @@ class MovieTest {
     }
 
     @Test
-    void GetInColor() {
+    void getInColor() {
         // Arrange
         Movie casablanca = collection.searchMovies("Casablanca").get(0);
 
@@ -56,7 +56,7 @@ class MovieTest {
     }
 
     @Test
-    void SetMovieDirector() {
+    void setMovieDirector() {
         // Arrange
         Movie casablanca = collection.searchMovies("Casablanca").get(0);
 
@@ -68,7 +68,7 @@ class MovieTest {
     }
 
     @Test
-    void TestInvalidDirector() {
+    void testInvalidDirector() {
 
         Movie casablanca = collection.searchMovies("Casablanca").get(0);
 
