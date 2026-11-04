@@ -1,10 +1,13 @@
+
 package domain;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 
-public class Movie {
+
+public class Movie implements Comparable<Movie> {
+
     private String title;
     private String director;
     private int yearCreated;
@@ -13,9 +16,6 @@ public class Movie {
     private String genre;
     private LocalDate lastWatched;
     private static final int FIRST_MOVIE_YEAR = 1888;
-
-
-
 
     public Movie(String title, String genre, String director,
                  int yearCreated, int lengthInMinutes,
@@ -29,6 +29,7 @@ public class Movie {
         setInColor(inColor);
         setLastWatched(lastWatched);
     }
+
     public boolean hasBeenWatched() {
         return lastWatched != null;
     }
@@ -36,10 +37,10 @@ public class Movie {
     public void markAsWatched(LocalDate date) {
         setLastWatched(date);
     }
+
     public void setLastWatched(LocalDate lastWatched) {
 
         if (lastWatched != null && lastWatched.isAfter(LocalDate.now())) {
-
             throw new IllegalArgumentException(
                     "Du har ikke set filmen endnu, datoen er i fremtiden."
             );
@@ -48,18 +49,15 @@ public class Movie {
         this.lastWatched = lastWatched;
     }
 
-    // Antal dage fra lastWatched til today. Må kun kaldes, hvis hasBeenWatched() er true.
     public long getDaysSinceWatched(LocalDate today) {
         return ChronoUnit.DAYS.between(lastWatched, today);
     }
 
-
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
-
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException(
                     "Titlen må ikke være tom!"
@@ -69,17 +67,14 @@ public class Movie {
         this.title = title;
     }
 
-
     public int getYearCreated() {
         return yearCreated;
     }
 
     public void setYearCreated(int yearCreated) {
-
         int latestYear = LocalDate.now().getYear() + 1;
 
         if (yearCreated < FIRST_MOVIE_YEAR || yearCreated > latestYear) {
-
             throw new IllegalArgumentException(
                     "Årstallet skal være mellem " +
                             FIRST_MOVIE_YEAR + " og " + latestYear
@@ -89,21 +84,19 @@ public class Movie {
         this.yearCreated = yearCreated;
     }
 
-
     public boolean isInColor() {
         return inColor;
     }
 
-    public void setInColor(boolean inColor)
+    public void setInColor(boolean inColor) {
+        this.inColor = inColor;
+    }
 
-    {this.inColor= inColor;}
-
-    public String getDirector()
-
-    { return director;}
+    public String getDirector() {
+        return director;
+    }
 
     public void setDirector(String director) {
-
         if (director == null || director.isBlank()) {
             throw new IllegalArgumentException(
                     "Instruktørens navn må ikke være tomt!"
@@ -113,12 +106,11 @@ public class Movie {
         this.director = director;
     }
 
-    public int getLengthInMinutes()
-
-    {return lengthInMinutes;}
+    public int getLengthInMinutes() {
+        return lengthInMinutes;
+    }
 
     public void setLengthInMinutes(int lengthInMinutes) {
-
         if (lengthInMinutes < 1) {
             throw new IllegalArgumentException(
                     "Filmen skal vare mindst 1 minut"
@@ -128,10 +120,11 @@ public class Movie {
         this.lengthInMinutes = lengthInMinutes;
     }
 
-    public String getGenre()
-    {return genre;}
-    public void setGenre(String genre) {
+    public String getGenre() {
+        return genre;
+    }
 
+    public void setGenre(String genre) {
         if (genre == null || genre.isBlank()) {
             throw new IllegalArgumentException(
                     "Genren må ikke være tom!"
@@ -141,17 +134,12 @@ public class Movie {
         this.genre = genre;
     }
 
-
-    public LocalDate getLastWatched(){
+    public LocalDate getLastWatched() {
         return lastWatched;
     }
 
-
-
-
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Film " + "Titel: " + title +
                 ", Genre: " + genre +
                 ", Instruktør: " + director +
@@ -160,5 +148,11 @@ public class Movie {
                 "I farve: " + inColor +
                 ", Sidst set: " + (lastWatched == null ? "Aldrig" :
                 lastWatched.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    }
+
+
+    @Override
+    public int compareTo(Movie other) {
+        return this.title.compareToIgnoreCase(other.title);
     }
 }
