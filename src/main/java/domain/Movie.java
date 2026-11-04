@@ -145,7 +145,7 @@ public class Movie implements Comparable<Movie> {
                 ", Instruktør: " + director +
                 ", Udgivelsesår: " + yearCreated +
                 ", Længde: " + lengthInMinutes + " min., " +
-                "I farve: " + inColor +
+                "I farve: " + (inColor ? "Ja" : "Nej") +
                 ", Sidst set: " + (lastWatched == null ? "Aldrig" :
                 lastWatched.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
