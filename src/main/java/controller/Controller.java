@@ -96,7 +96,7 @@ public class Controller {
     // Henter film sorteret efter titel
 
     public ArrayList<Movie> getMoviesSortedByTitle() {
-        return getMoviesSortedBy(SortField.TITLE);
+        return movieCollection.getMoviesSortedByTitle();
     }
 
     // Henter film sorteret efter brugerens valg

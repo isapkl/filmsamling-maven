@@ -4,7 +4,7 @@ package domain;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Collections; // NYT 3
+import java.util.Collections;
 
 public class MovieCollection {
 
