@@ -30,9 +30,6 @@ Projektet bruger Maven og JDK 25.
 - Validering af filmoplysninger og håndtering af forkert input.
 - Vis film sorteret efter titel, genre, instruktør, længde eller årstal.
 
-## Kendte mangler
-
-- Tænker at den vil være relevant, hvis vi mangler noget til sidst.
 
 ## Tests
 
